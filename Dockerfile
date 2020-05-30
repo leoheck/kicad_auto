@@ -1,12 +1,17 @@
 FROM setsoft/kicad_debian:latest
-MAINTAINER Salvador E. Tropea <set@ieee.org>
+MAINTAINER Leandro Heck <leoheck@gmail.com>
 LABEL Description="KiCad with KiPlot and other automation scripts"
 
 COPY *.deb /
-RUN     apt-get update  && \
-	apt-get -y install --no-install-recommends make && \
-	apt -y install --no-install-recommends ./*.deb && \
-	apt-get -y autoremove && \
-	rm /*.deb && \
-	rm -rf /var/lib/apt/lists/*
 
+RUN	apt-get update
+RUN	apt-get -y install --no-install-recommends make
+RUN	apt-get -y install --no-install-recommends git
+RUN	apt-get -y install --no-install-recommends ssh
+RUN	apt-get -y install --no-install-recommends tar
+RUN	apt-get -y install --no-install-recommends wget
+RUN	apt-get -y install --no-install-recommends ca-certificates
+RUN	apt -y install --no-install-recommends ./*.deb
+RUN	apt-get -y autoremove
+RUN	rm /*.deb
+RUN	rm -rf /var/lib/apt/lists/*
