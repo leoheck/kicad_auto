@@ -1,7 +1,9 @@
 
 tagname = 10.4-5.1.6
 docker_user = leoheck
-docker_img = leoheck/kicad_auto
+docker_img = $(docker_user)/kicad_auto
+
+all: build_release upload_image
 
 donwload_packages:
 	./download.sh
@@ -15,11 +17,19 @@ upload_image:
 	docker push $(docker_img):$(tagname)
 	docker push $(docker_img):latest
 
-# If docker is not installer int the host system
+run:
+	docker run -a stdin -a stdout -i -t $(docker_img):$(tagname) /bin/bash
+
+# If docker is not installed in the host system
 install_docker:
 	sudo apt install docker.io
 	sudo systemctl enable --now docker
 	sudo usermod -aG docker $(USER)
+
+# Remove dockes to claim computer space
+# It is good to rebuild the image from scratch
+remove_all_images:
+	docker rmi $(docker images -a -q)
 
 clean:
 	@ rm -rf *.deb
