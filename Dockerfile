@@ -35,6 +35,7 @@ run apt-get install -y --no-install-recommends libpcre3-dev
 run apt-get install -y --no-install-recommends perl
 run apt-get install -y --no-install-recommends lsb-release
 run apt-get install -y --no-install-recommends python3-tk
+run apt-get install -y --no-install-recommends make
 
 #=======================================
 # jnavila/PlotKicadSch

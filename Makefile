@@ -10,12 +10,12 @@ donwload_packages:
 
 build_release:
 	docker build -f Dockerfile -t $(docker_img):$(tagname) .
-	docker build -f Dockerfile -t $(docker_img):latest .
+	# docker build -f Dockerfile -t $(docker_img):latest .
 
 upload_image:
 	docker login --username=$(docker_user)
 	docker push $(docker_img):$(tagname)
-	docker push $(docker_img):latest
+	# docker push $(docker_img):latest
 
 run:
 	docker run -a stdin -a stdout -i -t $(docker_img):$(tagname) /bin/bash
@@ -29,7 +29,7 @@ install_docker:
 # Remove dockes to claim computer space
 # It is good to rebuild the image from scratch
 remove_all_images:
-	docker rmi $(docker images -a -q)
+	docker system prune -a
 
 clean:
 	@ rm -rf *.deb
